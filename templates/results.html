@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Analysis Results</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2em;
+        background: #f7f7f7;
+      }
+      .container {
+        background: #fff;
+        padding: 2em;
+        border-radius: 8px;
+        max-width: 800px;
+        margin: auto;
+        box-shadow: 0 2px 8px #ccc;
+      }
+      h1 {
+        color: #333;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1em;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 0.5em;
+        text-align: center;
+      }
+      th {
+        background: #007bff;
+        color: #fff;
+      }
+      tr:nth-child(even) {
+        background: #f2f2f2;
+      }
+      .back {
+        margin-top: 2em;
+        display: inline-block;
+        color: #007bff;
+        text-decoration: none;
+      }
+      .back:hover {
+        text-decoration: underline;
+      }
+      .audio-link {
+        font-size: 0.9em;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Analysis Results</h1>
+      <p class="audio-link">Audio file: {{ audio_file }}</p>
+      <h2>Audio Analysis</h2>
+      <ul>
+        {% for key, value in analysis.items() %}
+        <li>
+          <strong>{{ key.replace('_', ' ').capitalize() }}:</strong> {{ value }}
+        </li>
+        {% endfor %}
+      </ul>
+      <h2>Pitch Estimates</h2>
+      <table>
+        <tr>
+          <th>Start Time (s)</th>
+          <th>End Time (s)</th>
+          <th>Frequency (Hz)</th>
+          <th>Note</th>
+          <th>Confidence</th>
+        </tr>
+        {% for pitch in pitch_estimates[:50] %}
+        <tr>
+          <td>{{ pitch.start_time|round(2) }}</td>
+          <td>{{ pitch.end_time|round(2) }}</td>
+          <td>{{ pitch.estimated_frequency|round(2) }}</td>
+          <td>{{ pitch.note }}</td>
+          <td>{{ pitch.confidence|round(2) }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <h2>Single-Note Guitar Tab (Monophonic)</h2>
+      <pre
+        style="
+          background: #222;
+          color: #0f0;
+          padding: 1em;
+          border-radius: 6px;
+          overflow-x: auto;
+        "
+      >
+{{ tab }}</pre
+      >
+      <a href="/" class="back">&#8592; Back to Home</a>
+    </div>
+  </body>
+</html>

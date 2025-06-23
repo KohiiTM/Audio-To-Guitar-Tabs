@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Audio Processor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2em;
+        background: #f7f7f7;
+      }
+      .container {
+        background: #fff;
+        padding: 2em;
+        border-radius: 8px;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 2px 8px #ccc;
+      }
+      h1 {
+        color: #333;
+      }
+      form {
+        margin-bottom: 2em;
+      }
+      label {
+        display: block;
+        margin-top: 1em;
+      }
+      input[type="text"],
+      input[type="file"] {
+        width: 100%;
+        padding: 0.5em;
+        margin-top: 0.5em;
+      }
+      button {
+        margin-top: 1em;
+        padding: 0.7em 2em;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+      .flash {
+        color: red;
+        margin-bottom: 1em;
+      }
+      .loading {
+        display: none;
+        color: #007bff;
+        margin-top: 1em;
+      }
+      .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 10px;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Audio Processor</h1>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="flash">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+      <form action="/extract" method="post" id="youtube-form">
+        <label for="youtube_url">YouTube URL:</label>
+        <input
+          type="text"
+          id="youtube_url"
+          name="youtube_url"
+          placeholder="Paste YouTube link here"
+        />
+        <button type="submit" id="extract-btn">Extract & Analyze</button>
+        <div class="loading" id="youtube-loading">
+          <span class="spinner"></span>Processing YouTube video... This may take
+          30-60 seconds.
+        </div>
+      </form>
+      <form
+        action="/analyze"
+        method="post"
+        enctype="multipart/form-data"
+        id="file-form"
+      >
+        <label for="audio_file">Upload Audio File:</label>
+        <input
+          type="file"
+          id="audio_file"
+          name="audio_file"
+          accept=".wav,.mp3,.m4a,.webm,.ogg"
+        />
+        <button type="submit" id="analyze-btn">Analyze File</button>
+        <div class="loading" id="file-loading">
+          <span class="spinner"></span>Analyzing audio file...
+        </div>
+      </form>
+      <form action="/cleanup" method="post">
+        <button type="submit" style="background: #dc3545">
+          Cleanup Temp Files
+        </button>
+      </form>
+      <p style="margin-top: 2em; color: #666; font-size: 0.9em">
+        Paste a YouTube link or upload an audio file to analyze pitch and audio
+        properties.
+      </p>
+
+      <div
+        style="
+          margin-top: 2em;
+          padding: 1em;
+          background: #f8f9fa;
+          border-radius: 6px;
+          border-left: 4px solid #007bff;
+        "
+      >
+        <h3 style="margin-top: 0; color: #007bff">
+          Tips for YouTube Processing:
+        </h3>
+        <ul style="margin-bottom: 0; color: #666">
+          <li>
+            <strong>Short videos work best:</strong> Videos under 10 minutes
+            process faster
+          </li>
+          <li>
+            <strong>Public videos only:</strong> Private or age-restricted
+            videos won't work
+          </li>
+          <li>
+            <strong>Good audio quality:</strong> Clear, single-instrument audio
+            works best
+          </li>
+          <li>
+            <strong>Be patient:</strong> YouTube downloads can take 30-60
+            seconds
+          </li>
+          <li>
+            <strong>Try local files:</strong> Upload audio files for faster
+            processing
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("youtube-form")
+        .addEventListener("submit", function () {
+          document.getElementById("extract-btn").disabled = true;
+          document.getElementById("youtube-loading").style.display = "block";
+        });
+
+      document
+        .getElementById("file-form")
+        .addEventListener("submit", function () {
+          document.getElementById("analyze-btn").disabled = true;
+          document.getElementById("file-loading").style.display = "block";
+        });
+    </script>
+  </body>
+</html>
