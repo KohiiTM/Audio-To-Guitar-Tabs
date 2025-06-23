@@ -74,7 +74,7 @@
           <th>Note</th>
           <th>Confidence</th>
         </tr>
-        {% for pitch in pitch_estimates[:50] %}
+        {% for pitch in pitch_estimates %}
         <tr>
           <td>{{ pitch.start_time|round(2) }}</td>
           <td>{{ pitch.end_time|round(2) }}</td>
@@ -84,7 +84,11 @@
         </tr>
         {% endfor %}
       </table>
-      <h2>Single-Note Guitar Tab (Monophonic)</h2>
+      <h2>Full Sheet Guitar Tab</h2>
+      <div style="margin: 1em 0">
+        <p><strong>Format:</strong> 8 notes per measure, 4 measures per line</p>
+        <p><strong>Total notes:</strong> {{ pitch_estimates|length }}</p>
+      </div>
       <pre
         style="
           background: #222;
@@ -92,6 +96,10 @@
           padding: 1em;
           border-radius: 6px;
           overflow-x: auto;
+          white-space: pre-wrap;
+          font-family: 'Courier New', monospace;
+          font-size: 14px;
+          line-height: 1.4;
         "
       >
 {{ tab }}</pre

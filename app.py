@@ -220,8 +220,9 @@ def web_extract_audio():
         analysis = extractor.get_audio_info(audio_file)
         print("Generating pitch estimates...")
         pitch_estimates = extractor.simulate_pitch_estimation(audio_file)
-        print("Generating tab...")
-        tab = generate_tab(pitch_estimates)
+        print("Generating full sheet tab...")
+        # Generate full sheet tab with measures and line breaks
+        tab = generate_tab(pitch_estimates, notes_per_measure=8, measures_per_line=4)
         print("Processing complete!")
         return render_template('results.html', audio_file=audio_file, analysis=analysis, pitch_estimates=pitch_estimates, tab=tab)
     except Exception as e:
@@ -246,8 +247,9 @@ def web_analyze_audio():
         analysis = extractor.get_audio_info(file_path)
         print("Generating pitch estimates...")
         pitch_estimates = extractor.simulate_pitch_estimation(file_path)
-        print("Generating tab...")
-        tab = generate_tab(pitch_estimates)
+        print("Generating full sheet tab...")
+        # Generate full sheet tab with measures and line breaks
+        tab = generate_tab(pitch_estimates, notes_per_measure=8, measures_per_line=4)
         print("Processing complete!")
         
         return render_template('results.html', audio_file=file_path, analysis=analysis, pitch_estimates=pitch_estimates, tab=tab)
