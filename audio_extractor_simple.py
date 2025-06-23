@@ -1,10 +1,4 @@
 #!/usr/bin/env python3
-"""
-Phase 1: Audio Extraction & Basic Pitch Detection (Simplified Version)
-This script demonstrates the core functionality for extracting audio from YouTube
-and performing basic pitch analysis, compatible with Python 3.13.
-"""
-
 import os
 import sys
 import tempfile
@@ -21,15 +15,6 @@ class SimpleAudioExtractor:
         os.makedirs(output_dir, exist_ok=True)
     
     def extract_audio_from_youtube(self, youtube_url: str) -> Optional[str]:
-        """
-        Extract audio from a YouTube URL.
-        
-        Args:
-            youtube_url: The YouTube URL to extract audio from
-            
-        Returns:
-            Path to the extracted audio file, or None if extraction failed
-        """
         try:
             ydl_opts = {
                 'format': 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio',

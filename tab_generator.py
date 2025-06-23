@@ -57,7 +57,6 @@ def generate_tab(pitch_estimates):
 
 # Example usage:
 if __name__ == '__main__':
-    # Fake pitch estimates for demo
     demo = [
         {'note': 'E4'}, {'note': 'F4'}, {'note': 'G4'}, {'note': 'A4'}, {'note': 'B4'}, {'note': 'C5'}, {'note': 'Unknown'}
     ]
