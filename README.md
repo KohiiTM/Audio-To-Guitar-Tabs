@@ -1,3 +1,8 @@
+![image](https://github.com/user-attachments/assets/2d9dd34e-eeb2-45e2-a395-5a81d1b46f6f)
+![image](https://github.com/user-attachments/assets/925a936d-8f2e-49c1-895c-39a9c585323c)
+![image](https://github.com/user-attachments/assets/d96de54b-ce63-4f37-800d-d8da97e4f7cd)
+
+
 # Audio Processor - Phase 1
 
 This directory contains the Python-based audio processing component for the YouTube to Guitar Tablature project.
